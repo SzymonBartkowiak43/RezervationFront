@@ -150,7 +150,7 @@ const SalonDetails = () => {
                             <option value="">Select an employee</option>
                             {employees.map((employee) => (
                                 <option key={employee.id} value={employee.id}>
-                                    {employee.employeeId}
+                                    {employee.name}
                                 </option>
                             ))}
                         </select>

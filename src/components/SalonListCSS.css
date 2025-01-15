@@ -55,3 +55,18 @@
 .salon-card button:hover {
     background-color: #1976D2;
 }
+
+.salon-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+.salon-card {
+    border: 1px solid #ddd;
+    padding: 16px;
+    border-radius: 8px;
+    margin: 16px;
+    text-align: center;
+}

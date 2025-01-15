@@ -34,6 +34,10 @@ const SalonDetails = () => {
     const [loadingEmployees, setLoadingEmployees] = useState(false);
     const [loadingTerms, setLoadingTerms] = useState(false);
 
+    const [showPopup, setShowPopup] = useState(false);
+    const [userEmail, setUserEmail] = useState("");
+    const [selectedTerm, setSelectedTerm] = useState<Term | null>(null);
+
     useEffect(() => {
         axios
             .get(`http://localhost:8080/offers/${id}`)
@@ -150,7 +154,7 @@ const SalonDetails = () => {
                             <option value="">Select an employee</option>
                             {employees.map((employee) => (
                                 <option key={employee.id} value={employee.id}>
-                                    {employee.name}
+                                    {employee.employeeId}
                                 </option>
                             ))}
                         </select>
@@ -177,12 +181,71 @@ const SalonDetails = () => {
                             {availableTerms.map((term, index) => (
                                 <li key={index}>
                                     {term.startServices} - {term.endServices}
-                                    <button onClick={()=>alert("Siema")} id="book">book</button>
+                                    <button
+                                        onClick={() => {
+                                            setSelectedTerm(term); // Ustaw wybrany termin
+                                            setShowPopup(true); // Pokaż popup
+                                        }}
+                                        id="book"
+                                    >
+                                        Book
+                                    </button>
                                 </li>
                             ))}
                         </ul>
                     )}
                 </div>
+            )}
+
+            {/* Wyświetlamy popup */}
+            {showPopup && (
+                <>
+                    <div className="popup-overlay" onClick={() => setShowPopup(false)}></div>
+                    <div className="popup">
+                        <h3>Enter your email:</h3>
+                        <input
+                            type="email"
+                            value={userEmail}
+                            onChange={(e) => setUserEmail(e.target.value)}
+                            placeholder="Enter your email"
+                        />
+                        <button
+                            onClick={() => {
+                                if (!userEmail || !selectedTerm || !selectedOfferId || !selectedEmployeeId || !id) {
+                                    alert("Please fill in all the required fields.");
+                                    return;
+                                }
+
+                                // Połączenie daty i czasu
+                                const reservationDateTime = `${selectedDate}T${selectedTerm.startServices}`;
+
+                                const reservationData = {
+                                    employeeId: selectedEmployeeId,
+                                    offerId: selectedOfferId,
+                                    salonId: Number(id), // Konwertujemy id z useParams na liczbę
+                                    reservationDateTime: reservationDateTime, // Używamy pełnego formatu daty i czasu
+                                    userEmail: userEmail,
+                                };
+
+                                axios
+                                    .post("http://localhost:8080/reservation", reservationData)
+                                    .then((response) => {
+                                        console.log("Reservation successful:", response.data);
+                                        alert("Reservation successful!");
+                                        setShowPopup(false); // Zamknij popup
+                                        setUserEmail(""); // Wyczyść pole email
+                                    })
+                                    .catch((error) => {
+                                        console.error("Error creating reservation:", error);
+                                        alert("Failed to create reservation. Please try again.");
+                                    });
+                            }}
+                        >
+                            Confirm
+                        </button>
+                        <button onClick={() => setShowPopup(false)}>Cancel</button>
+                    </div>
+                </>
             )}
         </div>
     );

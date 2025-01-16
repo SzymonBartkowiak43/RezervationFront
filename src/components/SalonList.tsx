@@ -11,13 +11,13 @@ const SalonList = () => {
         const fetchSalonsWithImages = async () => {
             try {
                 // Pobierz wszystkie salony
-                const salonsResponse = await axios.get("http://localhost:8080/salons");
+                const salonsResponse = await axios.get("http://164.90.243.197:8080/salons");
                 const fetchedSalons = salonsResponse.data;
 
                 // Pobierz obrazki dla każdego salonu równolegle
                 const salonPromises = fetchedSalons.map(async (salon) => {
                     try {
-                        const imageResponse = await axios.get(`http://localhost:8080/salons/image/${salon.id}`);
+                        const imageResponse = await axios.get(`http://164.90.243.197:8080/salons/image/${salon.id}`);
                         return {
                             ...salon,
                             imageUrl: imageResponse.data[0]?.imageUrl || null, // Pobierz URL pierwszego obrazka

@@ -40,7 +40,7 @@ const SalonDetails = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8080/offers/${id}`)
+            .get(`http://164.90.243.197:8080/offers/${id}`)
             .then((response) => {
                 setOffers(response.data);
                 setLoadingOffers(false);
@@ -54,7 +54,7 @@ const SalonDetails = () => {
     const fetchEmployees = (offerId: number) => {
         setLoadingEmployees(true);
         axios
-            .get(`http://localhost:8080/employee-to-offer/${offerId}`)
+            .get(`http://164.90.243.197:8080/employee-to-offer/${offerId}`)
             .then((response) => {
                 setEmployees(response.data);
                 setLoadingEmployees(false);
@@ -84,7 +84,7 @@ const SalonDetails = () => {
 
         setLoadingTerms(true);
 
-        const url = `http://localhost:8080/employee/available-dates?date=${selectedDate}&employeeId=${selectedEmployeeId}&offerId=${selectedOfferId}`;
+        const url = `http://164.90.243.197:8080/employee/available-dates?date=${selectedDate}&employeeId=${selectedEmployeeId}&offerId=${selectedOfferId}`;
 
         axios
             .get(url)
@@ -197,7 +197,6 @@ const SalonDetails = () => {
                 </div>
             )}
 
-            {/* Wyświetlamy popup */}
             {showPopup && (
                 <>
                     <div className="popup-overlay" onClick={() => setShowPopup(false)}></div>
@@ -216,24 +215,23 @@ const SalonDetails = () => {
                                     return;
                                 }
 
-                                // Połączenie daty i czasu
                                 const reservationDateTime = `${selectedDate}T${selectedTerm.startServices}`;
 
                                 const reservationData = {
                                     employeeId: selectedEmployeeId,
                                     offerId: selectedOfferId,
-                                    salonId: Number(id), // Konwertujemy id z useParams na liczbę
-                                    reservationDateTime: reservationDateTime, // Używamy pełnego formatu daty i czasu
+                                    salonId: Number(id),
+                                    reservationDateTime: reservationDateTime,
                                     userEmail: userEmail,
                                 };
 
                                 axios
-                                    .post("http://localhost:8080/reservation", reservationData)
+                                    .post("http://164.90.243.197:8080/reservation", reservationData)
                                     .then((response) => {
                                         console.log("Reservation successful:", response.data);
                                         alert("Reservation successful!");
-                                        setShowPopup(false); // Zamknij popup
-                                        setUserEmail(""); // Wyczyść pole email
+                                        setShowPopup(false);
+                                        setUserEmail("");
                                     })
                                     .catch((error) => {
                                         console.error("Error creating reservation:", error);

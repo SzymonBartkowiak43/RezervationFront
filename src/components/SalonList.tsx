@@ -10,12 +10,12 @@ const SalonList = () => {
     useEffect(() => {
         const fetchSalonsWithImages = async () => {
             try {
-                const salonsResponse = await axios.get("http://64.226.121.138:8080/salons");
+                const salonsResponse = await axios.get("http://165.22.73.244:8080/salons");
                 const fetchedSalons = salonsResponse.data;
 
                 const salonPromises = fetchedSalons.map(async (salon) => {
                     try {
-                        const imageResponse = await axios.get(`http://64.226.121.138:8080/salons/image/${salon.id}`);
+                        const imageResponse = await axios.get(`http://165.22.73.244:8080/salons/image/${salon.id}`);
                         return {
                             ...salon,
                             imageUrl: imageResponse.data[0]?.imageUrl || null, // Pobierz URL pierwszego obrazka

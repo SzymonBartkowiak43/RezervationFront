@@ -40,7 +40,7 @@ const SalonDetails = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8080/offers/${id}`)
+            .get(`http://64.226.121.138:8080/offers/${id}`)
             .then((response) => {
                 setOffers(response.data);
                 setLoadingOffers(false);
@@ -54,7 +54,7 @@ const SalonDetails = () => {
     const fetchEmployees = (offerId: number) => {
         setLoadingEmployees(true);
         axios
-            .get(`http://localhost:8080/employee-to-offer/${offerId}`)
+            .get(`http://64.226.121.138:8080/employee-to-offer/${offerId}`)
             .then((response) => {
                 setEmployees(response.data);
                 setLoadingEmployees(false);
@@ -84,7 +84,7 @@ const SalonDetails = () => {
 
         setLoadingTerms(true);
 
-        const url = `http://localhost:8080/employee/available-dates?date=${selectedDate}&employeeId=${selectedEmployeeId}&offerId=${selectedOfferId}`;
+        const url = `http://64.226.121.138:8080/employee/available-dates?date=${selectedDate}&employeeId=${selectedEmployeeId}&offerId=${selectedOfferId}`;
 
         axios
             .get(url)
@@ -226,7 +226,7 @@ const SalonDetails = () => {
                                 };
 
                                 axios
-                                    .post("http://localhost:8080/reservation", reservationData)
+                                    .post("http://64.226.121.138:8080/reservation", reservationData)
                                     .then((response) => {
                                         console.log("Reservation successful:", response.data);
                                         alert("Reservation successful!");

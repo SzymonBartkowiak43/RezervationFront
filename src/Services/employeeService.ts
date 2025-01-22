@@ -11,7 +11,7 @@ export const getAvailableDates = (
   selectedDate: string,
   selectedOfferId: number
 ) => {
-  return axios.get(`${baseURL}employee/available-dates`, {
+  return axios.get(`${baseURL}/employee/available-dates`, {
     params: {
       date: selectedDate,
       employeeId: selectedEmployeeId,

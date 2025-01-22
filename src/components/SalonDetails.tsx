@@ -7,24 +7,9 @@ import {
   getAvailableDates,
 } from "../Services/employeeService";
 import { createReservation } from "../Services/reservationService";
-
-interface Offer {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-}
-
-interface Employee {
-  id: number;
-  name: string;
-  role: string;
-}
-
-interface Term {
-  startServices: string;
-  endServices: string;
-}
+import { Offer } from "../models/Offer";
+import { Term } from "../models/Term";
+import { Employee} from "../models/Employee";
 
 const SalonDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -140,13 +125,12 @@ const SalonDetails = () => {
                   <select onChange={handleEmployeeSelect}>
                     <option value="">Select an employee</option>
                     {employees.map((employee) => (
-                        <option key={employee.id} value={employee.id}>
-                          {employee.employeeId}
+                        <option key={employee.id} value={employee.employeeId}>
+                          {employee.name}
                         </option>
                     ))}
                   </select>
               )}
-
             </div>
         )}
 

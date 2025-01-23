@@ -14,6 +14,7 @@ import { Offer } from "../models/Offer";
 import { Employee } from "../models/Employee";
 import { Term } from "../models/Term";
 import "./SalonDetailsCSS.css";
+import header from "../header/Header";
 
 const SalonDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -168,4 +169,4 @@ const SalonDetails: React.FC = () => {
   );
 };
 
-export default SalonDetails;
+export default header(SalonDetails, "SalonDetails");

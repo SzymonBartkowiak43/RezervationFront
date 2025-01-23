@@ -4,15 +4,15 @@ import OfferSelector from "./OfferSelector";
 import EmployeeSelector from "./EmployeeSelector";
 import TermList from "./TermList";
 import ReservationPopup from "./ReservationPopup";
-import { getOffersBySalonId } from "../Services/offerService";
+import { getOffersBySalonId } from "../../Services/offerService";
 import {
   getEmployeeToOffer,
   getAvailableDates,
-} from "../Services/employeeService";
-import { createReservation } from "../Services/reservationService";
-import { Offer } from "../models/Offer";
-import { Employee } from "../models/Employee";
-import { Term } from "../models/Term";
+} from "../../Services/employeeService";
+import { createReservation } from "../../Services/reservationService";
+import { Offer } from "../../models/Offer";
+import { Employee } from "../../models/Employee";
+import { Term } from "../../models/Term";
 import "./SalonDetailsCSS.css";
 import header from "../header/Header";
 

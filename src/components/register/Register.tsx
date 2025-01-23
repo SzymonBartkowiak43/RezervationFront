@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { registerUser } from '../Services/userService';
+import { registerUser } from '../../Services/userService';
 import './Register.css';
 
 const Register = () => {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Term } from "../models/Term";
+import { Term } from "../../models/Term";
 
 interface TermListProps {
   terms: Term[];

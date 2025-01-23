@@ -1,5 +1,5 @@
 import React from "react";
-import { Offer } from "../models/Offer";
+import { Offer } from "../../models/Offer";
 
 interface OfferSelectorProps {
   offers: Offer[];

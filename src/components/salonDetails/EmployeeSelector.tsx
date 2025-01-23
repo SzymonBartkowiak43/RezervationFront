@@ -1,5 +1,5 @@
 import React from "react";
-import { Employee } from "../models/Employee";
+import { Employee } from "../../models/Employee";
 
 interface EmployeeSelectorProps {
   employees: Employee[];

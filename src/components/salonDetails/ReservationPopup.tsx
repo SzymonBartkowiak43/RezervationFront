@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Term } from "../models/Term";
+import { Term } from "../../models/Term";
 
 interface ReservationPopupProps {
   term: Term;

@@ -15,9 +15,13 @@ export const createReservation = (data: any) => {
   return axios.post(`${baseURL}/reservation`, data);
 };
 
-export const deleteReservation = (id: string) => {
-  return axios.delete(`${baseURL}/reservation`, { data: { id } });
+export const deleteReservation = (id: string, email: string, token: string) => {
+  return axios.delete(`${baseURL}/reservation`, {
+    data: { reservationId: id, userEmail: email },
+    headers: { Authorization: `Bearer ${token}` },
+  });
 };
+
 
 export const updateReservation = (data: any) => {
   return axios.patch(`${baseURL}/reservation`, data);

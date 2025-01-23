@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import SalonList from './components/SalonList';
-import SalonDetails from './components/SalonDetails';
-import Register from './components/Register';
-import Login from './components/Login';
-import UserReservation from "./components/UserReservation";
+import SalonList from './components/salonList/SalonList';
+import SalonDetails from './components/salonDetails/SalonDetails';
+import Register from './components/register/Register';
+import Login from './components/login/Login';
+import UserReservation from "./components/userReservation/UserReservation";
 import index from './index.css';
 
 function App() {

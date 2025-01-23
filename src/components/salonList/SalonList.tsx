@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./SalonListCSS.css";
-import { getSalons, getSalonImage } from "../Services/salonService";
-import { Salon } from "../models/Salon";
+import { getSalons, getSalonImage } from "../../Services/salonService";
+import { Salon } from "../../models/Salon";
 import header from "../header/Header";
 
 interface Salon {

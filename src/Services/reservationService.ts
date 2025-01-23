@@ -2,8 +2,13 @@ import axios from "axios";
 
 const baseURL = "http://localhost:8080";
 
-export const getReservations = () => {
-  return axios.get(`${baseURL}/reservation`);
+
+export const getUserReservations = async (email: string, token: string) => {
+  const response = await axios.get(`${baseURL}/reservations`, {
+    params: { email },
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return response.data;
 };
 
 export const createReservation = (data: any) => {

@@ -134,6 +134,7 @@ const UserReservations = () => {
                 </div>
             )}
         </div>
+
     );
 };
 

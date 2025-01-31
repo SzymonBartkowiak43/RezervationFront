@@ -24,5 +24,12 @@ export const deleteReservation = (id: string, email: string, token: string) => {
 
 
 export const updateReservation = (data: any) => {
+  console.log("Sending update request with data:", data); // Debugging
   return axios.patch(`${baseURL}/reservation`, data);
+};
+
+
+export const getNearest5Reservations = async (reservationId: string) => {
+  const response = await axios.get(`${baseURL}/reservation/${reservationId}/nearest`);
+  return response.data;
 };

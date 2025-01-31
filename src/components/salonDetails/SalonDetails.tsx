@@ -36,6 +36,8 @@ const SalonDetails: React.FC = () => {
   const [selectedTerm, setSelectedTerm] = useState<Term | null>(null);
   const [showPopup, setShowPopup] = useState(false);
 
+  const today = new Date().toISOString().split("T")[0];
+
   // Fetch offers for the salon
   useEffect(() => {
     setLoadingOffers(true);
@@ -135,6 +137,7 @@ const SalonDetails: React.FC = () => {
         <input
           type="date"
           value={selectedDate}
+          min={today}
           onChange={(e) => setSelectedDate(e.target.value)}
         />
       </div>

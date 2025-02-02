@@ -38,7 +38,6 @@ const SalonDetails: React.FC = () => {
 
   const today = new Date().toISOString().split("T")[0];
 
-  // Fetch offers for the salon
   useEffect(() => {
     setLoadingOffers(true);
     getOffersBySalonId(id!)
@@ -52,7 +51,6 @@ const SalonDetails: React.FC = () => {
       });
   }, [id]);
 
-  // Fetch employees for selected offer
   const fetchEmployees = (offerId: number) => {
     setLoadingEmployees(true);
     getEmployeeToOffer(offerId)
@@ -66,7 +64,6 @@ const SalonDetails: React.FC = () => {
       });
   };
 
-  // Fetch available terms based on selections
   const fetchAvailableTerms = () => {
     if (!selectedOfferId || !selectedEmployeeId || !selectedDate) {
       alert("Please select an offer, an employee, and a date.");
@@ -107,7 +104,6 @@ const SalonDetails: React.FC = () => {
     <div className="salon-details">
       <h2>Salon Details - Offers and Reservations</h2>
 
-      {/* Offer Selector */}
       {loadingOffers ? (
         <div>Loading offers...</div>
       ) : (
@@ -121,7 +117,6 @@ const SalonDetails: React.FC = () => {
         />
       )}
 
-      {/* Employee Selector */}
       {selectedOfferId && (
         <EmployeeSelector
           employees={employees}
@@ -131,7 +126,6 @@ const SalonDetails: React.FC = () => {
         />
       )}
 
-      {/* Date Picker */}
       <div>
         <h3>Select a Date</h3>
         <input
@@ -142,12 +136,10 @@ const SalonDetails: React.FC = () => {
         />
       </div>
 
-      {/* Fetch Terms Button */}
       <button onClick={fetchAvailableTerms} disabled={loadingTerms}>
         {loadingTerms ? "Fetching terms..." : "Fetch Available Terms"}
       </button>
 
-      {/* Term List */}
       <TermList
         terms={availableTerms}
         onTermSelect={(term) => {
@@ -156,7 +148,6 @@ const SalonDetails: React.FC = () => {
         }}
       />
 
-      {/* Reservation Popup */}
       {showPopup && selectedTerm && selectedOfferId && selectedEmployeeId && (
         <ReservationPopup
           term={selectedTerm}

@@ -3,6 +3,7 @@ import {
   getUserReservations,
   deleteReservation,
   updateReservation,
+  getNearest5Reservations,
 } from "../../Services/reservationService";
 import "./UserReservation.css";
 import header from "../header/Header";
@@ -12,7 +13,7 @@ const UserReservations = () => {
   const [selectedReservation, setSelectedReservation] = useState<any | null>(
     null
   );
-  const [availableDates, setAvailableDates] = useState<any[]>([]); // Nowy stan na dostępne terminy
+  const [availableDates, setAvailableDates] = useState<any[]>([]);
   const email = localStorage.getItem("email");
   const token = localStorage.getItem("token");
 
@@ -50,8 +51,8 @@ const UserReservations = () => {
     if (!selectedReservation) return;
 
     const updatedData = {
-      reservationId: selectedReservation.reservationId, // Zamiast id
-      newReservationDate: newDateTime, // Zamiast reservationDateTime
+      reservationId: selectedReservation.reservationId,
+      newReservationDate: newDateTime,
     };
 
     updateReservation(updatedData)
@@ -73,6 +74,7 @@ const UserReservations = () => {
         );
     }
   };
+
 
   return (
     <div className="user-reservations">

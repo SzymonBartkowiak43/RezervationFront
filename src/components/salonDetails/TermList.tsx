@@ -12,13 +12,15 @@ const TermList: React.FC<TermListProps> = ({ terms, onTermSelect }) => {
   }
 
   return (
-    <div>
+    <div className={"term-list"}>
       <h3>Available Terms</h3>
       <ul>
         {terms.map((term, index) => (
           <li key={index}>
             {term.startServices} - {term.endServices}
-            <button onClick={() => onTermSelect(term)}>Book</button>
+              <div className={"term-list"}>
+              <button className="small-button" onClick={() => onTermSelect(term)}>Book</button>
+                </div>
           </li>
         ))}
       </ul>

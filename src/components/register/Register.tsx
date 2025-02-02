@@ -50,6 +50,8 @@ const Register = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            minLength={5}
+            maxLength={20}
             required
           />
         </div>

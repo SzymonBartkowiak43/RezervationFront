@@ -9,7 +9,6 @@
     min-height: 100vh;
 }
 
-
 .salon-card {
     background-color: #ffffff;
     border: 2px solid #e0e0e0;
@@ -80,3 +79,16 @@
 .sort2 {
     margin: 10px;
 }
+
+.salon-link {
+    text-decoration: none;
+    color: #007BFF;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.salon-link:hover {
+    color: #0056b3;
+}
+
+

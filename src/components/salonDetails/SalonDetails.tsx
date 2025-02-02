@@ -172,4 +172,4 @@ const SalonDetails: React.FC = () => {
   );
 };
 
-export default header(SalonDetails, "SalonDetails");
+export default header(SalonDetails, "Rezerwacje");

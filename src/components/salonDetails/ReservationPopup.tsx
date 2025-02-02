@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Term } from "../../models/Term";
 
 interface ReservationPopupProps {
@@ -27,6 +27,18 @@ const ReservationPopup: React.FC<ReservationPopupProps> = ({
   onConfirm,
 }) => {
   const [userEmail, setUserEmail] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isConfirmed, setIsConfirmed] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const storedEmail = localStorage.getItem("email");
+
+    if (token && storedEmail) {
+      setUserEmail(storedEmail);
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const handleConfirm = () => {
     if (!userEmail) {
@@ -42,26 +54,40 @@ const ReservationPopup: React.FC<ReservationPopupProps> = ({
       reservationDateTime,
       userEmail,
     });
+
+    // Ustawiamy stan, aby pokazać komunikat dopiero po zatwierdzeniu
+    setIsConfirmed(true);
   };
 
   return (
     <>
       <div className="popup-overlay" onClick={onClose}></div>
       <div className="popup">
-        <h3>Confirm Reservation</h3>
-        <p>
-          <strong>Term:</strong> {term.startServices} - {term.endServices}
-        </p>
-        <input
-          type="email"
-          value={userEmail}
-          onChange={(e) => setUserEmail(e.target.value)}
-          placeholder="Enter your email"
-        />
-        <div>
-          <button onClick={handleConfirm}>Confirm</button>
-          <button onClick={onClose}>Cancel</button>
-        </div>
+        {!isConfirmed ? (
+          <>
+            <h3>Confirm Reservation</h3>
+            <p>
+              <strong>Term:</strong> {term.startServices} - {term.endServices}
+            </p>
+            {!isLoggedIn && (
+              <input
+                type="email"
+                value={userEmail}
+                onChange={(e) => setUserEmail(e.target.value)}
+                placeholder="Enter your email"
+              />
+            )}
+            <div>
+              <button onClick={handleConfirm}>Confirm</button>
+              <button onClick={onClose}>Cancel</button>
+            </div>
+          </>
+        ) : (
+          <>
+            <h3>Thanks for your reservation, {userEmail}!</h3>
+            <button onClick={onClose}>Close</button>
+          </>
+        )}
       </div>
     </>
   );

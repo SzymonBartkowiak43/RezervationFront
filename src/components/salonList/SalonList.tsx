@@ -80,4 +80,4 @@ const SalonList = () => {
   );
 };
 
-export default header(SalonList, "Salon List");
+export default header(SalonList, "Rezerwacje");

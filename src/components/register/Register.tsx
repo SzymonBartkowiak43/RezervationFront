@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../Services/userService";
 import "./Register.css";
+import header from "../header/Header";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -58,4 +59,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default header(Register, "Rezerwacje");

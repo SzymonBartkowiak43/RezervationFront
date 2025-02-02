@@ -50,6 +50,17 @@ const SalonList = () => {
     fetchSalonsWithImages();
   }, []);
 
+  const sortSalons = (criteria: "name" | "city") => {
+    setSortCriteria(criteria);
+    const sortedSalons = [...salons].sort((a, b) => {
+      if (criteria === "name") {
+        return a.salonName.localeCompare(b.salonName);
+      }
+      return a.city.localeCompare(b.city);
+    });
+    setSalons(sortedSalons);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }

@@ -70,3 +70,13 @@
     margin: 16px;
     text-align: center;
 }
+
+.sort-buttons {
+    display: flex;
+    margin: 10px;
+    width: 20%;
+}
+.sort1,
+.sort2 {
+    margin: 10px;
+}

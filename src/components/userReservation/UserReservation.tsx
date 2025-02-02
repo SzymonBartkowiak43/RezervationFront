@@ -8,8 +8,11 @@ import "./UserReservation.css";
 import header from "../header/Header";
 
 const UserReservations = () => {
-  const [reservations, setReservations] = useState([]);
-  const [selectedReservation, setSelectedReservation] = useState(null);
+  const [reservations, setReservations] = useState<any[]>([]);
+  const [selectedReservation, setSelectedReservation] = useState<any | null>(
+    null
+  );
+  const [availableDates, setAvailableDates] = useState<any[]>([]); // Nowy stan na dostępne terminy
   const email = localStorage.getItem("email");
   const token = localStorage.getItem("token");
 
@@ -20,7 +23,7 @@ const UserReservations = () => {
   }, [email, token]);
 
   const fetchReservations = () => {
-    getUserReservations(email, token)
+    getUserReservations(email!, token!)
       .then((data) => setReservations(data))
       .catch((error) => console.error("Error fetching reservations:", error));
   };
@@ -43,10 +46,12 @@ const UserReservations = () => {
     }
   };
 
-  const handleUpdateReservation = () => {
+  const handleUpdateReservation = (newDateTime: string) => {
+    if (!selectedReservation) return;
+
     const updatedData = {
-      id: selectedReservation.reservationId,
-      reservationDateTime: new Date().toISOString(),
+      reservationId: selectedReservation.reservationId, // Zamiast id
+      newReservationDate: newDateTime, // Zamiast reservationDateTime
     };
 
     updateReservation(updatedData)
@@ -54,8 +59,19 @@ const UserReservations = () => {
         alert("Reservation updated successfully.");
         fetchReservations();
         setSelectedReservation(null);
+        setAvailableDates([]);
       })
       .catch((error) => console.error("Error updating reservation:", error));
+  };
+
+  const fetchNearestAvailableDates = () => {
+    if (selectedReservation) {
+      getNearest5Reservations(selectedReservation.reservationId)
+        .then((data) => setAvailableDates(data))
+        .catch((error) =>
+          console.error("Error fetching nearest dates:", error)
+        );
+    }
   };
 
   return (
@@ -104,7 +120,10 @@ const UserReservations = () => {
             <strong>Date and Time:</strong>{" "}
             {new Date(selectedReservation.reservationDateTime).toLocaleString()}
           </p>
-          <button className="change-button" onClick={handleUpdateReservation}>
+          <button
+            className="change-button"
+            onClick={fetchNearestAvailableDates}
+          >
             Change
           </button>
           <button
@@ -115,6 +134,28 @@ const UserReservations = () => {
           >
             Cancel
           </button>
+
+          {availableDates.length > 0 && (
+            <div className="available-dates">
+              <h4>Available Dates:</h4>
+              <ul>
+                {availableDates.map((date, index) => (
+                  <li key={index}>
+                    {date.date} - {date.startServices} to {date.endServices}
+                    <button
+                      onClick={() =>
+                        handleUpdateReservation(
+                          `${date.date}T${date.startServices}`
+                        )
+                      }
+                    >
+                      Change to this
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       )}
     </div>

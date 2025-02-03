@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import header from "../header/Header";
+import "./AddEmployeeForm.css";
 
 const AddEmployeeForm = ({ salonId }) => {
     const [name, setName] = useState("");
@@ -33,9 +34,10 @@ const AddEmployeeForm = ({ salonId }) => {
 
         try {
             const response = await axios.post(
-                `/salon/${salonId}/employee`,
+                `http://localhost:8080/salon/${salonId}/employee`,
                 employeeDto
             );
+
             if (response.status === 200) {
                 alert("Employee added successfully!");
             } else {
@@ -48,7 +50,7 @@ const AddEmployeeForm = ({ salonId }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="add-employee-form">
             <div>
                 <label>Employee Name</label>
                 <input

@@ -1,8 +1,11 @@
-import React, {useEffect, useState} from "react";
-import {useParams, useLocation} from "react-router-dom";
+// SalonDetailsPage.tsx
+import React, { useEffect, useState } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./SalonDetailsPage.css";
 import header from "../header/Header";
+import AddEmployeeForm from "./AddEmployeeForm";
+import AssignOfferForm from "./AssignOfferForm";
 
 interface Reservation {
     reservationId: number;
@@ -37,7 +40,7 @@ interface SalonData {
 }
 
 const SalonDetailsPage: React.FC = () => {
-    const {salonId} = useParams<{ salonId: string }>();
+    const { salonId } = useParams<{ salonId: string }>();
     const location = useLocation();
     const email = new URLSearchParams(location.search).get("email") || "";
 
@@ -48,6 +51,12 @@ const SalonDetailsPage: React.FC = () => {
     const [offerDescription, setOfferDescription] = useState("");
     const [offerPrice, setOfferPrice] = useState("");
     const [offerDuration, setOfferDuration] = useState(""); // liczba minut jako string
+
+    // Nowy stan do wyboru pracownika dla przypisania oferty
+    const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | "">("");
+
+    // Lista dostępnych ofert
+    const availableOffers: Offer[] = salon ? salon.offerDto : [];
 
     useEffect(() => {
         fetch(`http://localhost:8080/owner/salon/${salonId}?email=${encodeURIComponent(email)}`)
@@ -94,7 +103,7 @@ const SalonDetailsPage: React.FC = () => {
 
             // Aktualizujemy listę ofert
             setSalon((prevSalon) =>
-                prevSalon ? {...prevSalon, offerDto: [...prevSalon.offerDto, newOffer]} : prevSalon
+                prevSalon ? { ...prevSalon, offerDto: [...prevSalon.offerDto, newOffer] } : prevSalon
             );
 
             // Reset pól formularza
@@ -106,8 +115,6 @@ const SalonDetailsPage: React.FC = () => {
             console.error("Error creating new offer:", error);
         }
     };
-
-
 
     return (
         <div className="salon-container">
@@ -164,6 +171,12 @@ const SalonDetailsPage: React.FC = () => {
                 ))}
             </section>
 
+            {/* Sekcja dodawania nowego pracownika */}
+            <section className="section">
+                <h2>➕ Add New Employee</h2>
+                <AddEmployeeForm salonId={Number(salonId)} />
+            </section>
+
             <section className="section">
                 <h2>💇‍♂️ Services</h2>
                 <ul className="offer-list">
@@ -209,6 +222,37 @@ const SalonDetailsPage: React.FC = () => {
                         <button type="submit">Add Offer</button>
                     </form>
                 </div>
+            </section>
+
+            {/* Sekcja przypisywania oferty do pracownika - umieszczona na samym dole */}
+            <section className="section">
+                <h2>Assign Offer to Employee</h2>
+                <div>
+                    <label htmlFor="employee-select">Wybierz pracownika:</label>
+                    <select
+                        id="employee-select"
+                        value={selectedEmployeeId}
+                        onChange={(e) =>
+                            setSelectedEmployeeId(Number(e.target.value))
+                        }
+                    >
+                        <option value="">-- Wybierz --</option>
+                        {salon.employeeDto.map((emp) => (
+                            <option key={emp.employeeId} value={emp.employeeId}>
+                                {emp.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                {selectedEmployeeId !== "" && (
+                    <AssignOfferForm
+                        employeeId={Number(selectedEmployeeId)}
+                        availableOffers={availableOffers}
+                        onSuccess={() => {
+                            alert("Offer assigned successfully!");
+                        }}
+                    />
+                )}
             </section>
         </div>
     );

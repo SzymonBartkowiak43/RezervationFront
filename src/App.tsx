@@ -11,6 +11,7 @@ import CreateSalon from "./components/createSalon/CreateSalon";
 import AddOpeningHours from "./components/addOpeningHours/AddOpeningHours";
 import index from './index.css';
 
+
 function App() {
     return (
         <Router>

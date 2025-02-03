@@ -1,94 +1,150 @@
+/* SalonListCSS.css */
+:root {
+    --primary-color: #2a2a2a;
+    --secondary-color: #e76f51;
+    --background-color: #f8f9fa;
+    --text-light: #ffffff;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --image-aspect-ratio: 16/9;
+}
+
 .salon-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: top;
-    gap: 20px;
-    padding: 20px;
-    margin-top: 20px;
-    min-height: 100vh;
-}
-
-.salon-card {
-    background-color: #ffffff;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    width: 80%;
-    max-width: 600px;
-    padding: 30px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-.salon-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-    border-color: #2196F3;
-}
-
-.salon-card h3 {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-    color: #333;
-    font-weight: bold;
-}
-
-.salon-card p {
-    font-size: 1.1rem;
-    color: #666;
-    margin-bottom: 5px;
-}
-
-.salon-card button {
-    background-color: #2196F3;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: background-color 0.3s ease;
-}
-
-.salon-card button:hover {
-    background-color: #1976D2;
-}
-
-.salon-image {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    object-fit: cover;
-}
-.salon-card {
-    border: 1px solid #ddd;
-    padding: 16px;
-    border-radius: 8px;
-    margin: 16px;
-    text-align: center;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .sort-buttons {
     display: flex;
-    margin: 10px;
-    width: 20%;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
 }
-.sort1,
-.sort2 {
-    margin: 10px;
+
+button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 25px;
+    background-color: var(--secondary-color);
+    color: var(--text-light);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button:hover {
+    background-color: #d45d3f;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.salon-list-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.salon-card {
+    padding: 15px; /* Dodajemy padding do karty */
+    background: var(--text-light);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.salon-card:hover {
+    transform: translateY(-5px);
+}
+
+.salon-image {
+    width: 70%; /* Zmniejszenie szerokości do 70% */
+    height: auto;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    object-position: center;
+    margin: 0 auto; /* Wyśrodkowanie zdjęcia */
+    display: block;
+    border-radius: 8px; /* Mniejsze zaokrąglenie rogów */
+    transition: all 0.3s ease;
+}
+
+.salon-card-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0; /* Dostosowanie paddingu */
+}
+
+.salon-card:hover .salon-image {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.salon-card-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+.salon-card h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.salon-card p {
+    width: 70%;
+    margin: 0 auto;
+    padding: 20px 0;
+    text-align: center;
 }
 
 .salon-link {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    padding: 0.8rem;
+    text-align: center;
     text-decoration: none;
-    color: #007BFF;
-    font-weight: bold;
-    transition: color 0.3s ease;
+    border-radius: 8px;
+    margin-top: auto;
+    transition: background-color 0.3s ease;
 }
 
 .salon-link:hover {
-    color: #0056b3;
+    background-color: var(--secondary-color);
 }
 
+.no-salons {
+    text-align: center;
+    color: #666;
+    font-size: 1.2rem;
+    margin: 2rem 0;
+}
 
+@media (max-width: 768px) {
+    .salon-list {
+        padding: 1rem;
+    }
+
+    .salon-list-container {
+        grid-template-columns: 1fr;
+    }
+
+    button {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .sort-buttons {
+        flex-direction: column;
+    }
+}

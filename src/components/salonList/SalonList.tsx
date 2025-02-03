@@ -74,7 +74,7 @@ const SalonList = () => {
           <button className="sort1" onClick={() => sortSalons("name")}>
             Sort by Name
           </button>
-          <button className="sort2" onClick={() => sortSalons("city")}>
+          <button className="sort1" onClick={() => sortSalons("city")}>
             Sort by City
           </button>
         </div>
@@ -83,8 +83,8 @@ const SalonList = () => {
         ) : (
             salons.map((salon) => (
                 <div key={salon.id} className="salon-card">
-                  <h3>{salon.salonName}</h3>
-                  <p>{salon.city}</p>
+                  <h3 className="h3-color">{salon.salonName}</h3>
+                  <p className="salon-city">{salon.city}</p>
                   {salon.imageUrl ? (
                       <img
                           src={salon.imageUrl}

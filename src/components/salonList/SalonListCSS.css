@@ -1,9 +1,9 @@
 /* SalonListCSS.css */
 :root {
-    --primary-color: #2a2a2a;
+    --primary-color: #e30f0f;
     --secondary-color: #e76f51;
     --background-color: #f8f9fa;
-    --text-light: #ffffff;
+    --text-light: #dac6c6;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     --image-aspect-ratio: 16/9;
 }
@@ -47,9 +47,16 @@ button:hover {
     padding: 1rem;
 }
 
+.salon-city {
+    color: var(--text-light);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    margin-top: -10px;
+}
+
 .salon-card {
     padding: 15px; /* Dodajemy padding do karty */
-    background: var(--text-light);
+    background: #3d3c3c;
     border-radius: 15px;
     overflow: hidden;
     box-shadow: var(--shadow);
@@ -64,14 +71,15 @@ button:hover {
 }
 
 .salon-image {
-    width: 70%; /* Zmniejszenie szerokości do 70% */
+    width: 70%;
     height: auto;
     aspect-ratio: 16/9;
     object-fit: cover;
     object-position: center;
-    margin: 0 auto; /* Wyśrodkowanie zdjęcia */
+    margin: 0 auto;
+    margin-bottom: 20px;
     display: block;
-    border-radius: 8px; /* Mniejsze zaokrąglenie rogów */
+    border-radius: 8px;
     transition: all 0.3s ease;
 }
 
@@ -95,21 +103,16 @@ button:hover {
     flex-direction: column;
     gap: 0.8rem;
 }
-.salon-card h3 {
-    margin: 0 0 0.5rem 0;
-    color: var(--primary-color);
-    font-size: 1.5rem;
-}
 
 .salon-card p {
     width: 70%;
     margin: 0 auto;
-    padding: 20px 0;
+    margin-bottom: 20px;
     text-align: center;
 }
 
 .salon-link {
-    background-color: var(--primary-color);
+    background-color: #464545;
     color: var(--text-light);
     padding: 0.8rem;
     text-align: center;
@@ -120,7 +123,7 @@ button:hover {
 }
 
 .salon-link:hover {
-    background-color: var(--secondary-color);
+    background-color: #7a7777;
 }
 
 .no-salons {
@@ -129,6 +132,21 @@ button:hover {
     font-size: 1.2rem;
     margin: 2rem 0;
 }
+
+.h3-color {
+    color: white;
+    font-size: 1.5rem;
+    margin: 0 0 0 0;
+}
+
+.sort1 {
+    background-color: #777777;
+}
+
+.sort1:hover {
+    background-color: #424141;
+}
+
 
 @media (max-width: 768px) {
     .salon-list {

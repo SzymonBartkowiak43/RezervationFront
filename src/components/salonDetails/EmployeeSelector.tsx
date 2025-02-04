@@ -1,5 +1,6 @@
 import React from "react";
 import { Employee } from "../../models/Employee";
+import "./SalonDetailsCSS.css";
 
 interface EmployeeSelectorProps {
   employees: Employee[];

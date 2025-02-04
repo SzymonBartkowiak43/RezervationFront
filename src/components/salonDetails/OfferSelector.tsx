@@ -1,5 +1,6 @@
 import React from "react";
 import { Offer } from "../../models/Offer";
+import "./SalonDetailsCSS.css";
 
 interface OfferSelectorProps {
   offers: Offer[];
@@ -22,7 +23,7 @@ const OfferSelector: React.FC<OfferSelectorProps> = ({
         <option value="">Select an offer</option>
         {offers.map((offer) => (
           <option key={offer.id} value={offer.id}>
-            {offer.name} - {offer.price}$
+            {offer.name} - {offer.price} PLN
           </option>
         ))}
       </select>

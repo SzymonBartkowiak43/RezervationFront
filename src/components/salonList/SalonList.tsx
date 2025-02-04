@@ -9,6 +9,8 @@ interface Salon {
   id: number;
   salonName: string;
   city: string;
+  street: string;
+  number: string;
   imageUrl: string | null;
 }
 
@@ -84,7 +86,7 @@ const SalonList = () => {
             salons.map((salon) => (
                 <div key={salon.id} className="salon-card">
                   <h3 className="h3-color">{salon.salonName}</h3>
-                  <p className="salon-city">{salon.city}</p>
+                  <p className="salon-city">{salon.city}, {salon.street} {salon.number}</p>
                   {salon.imageUrl ? (
                       <img
                           src={salon.imageUrl}

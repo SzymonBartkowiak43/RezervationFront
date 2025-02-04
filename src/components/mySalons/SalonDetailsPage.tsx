@@ -58,6 +58,9 @@ const SalonDetailsPage: React.FC = () => {
     // Lista dostępnych ofert
     const availableOffers: Offer[] = salon ? salon.offerDto : [];
 
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [uploadStatus, setUploadStatus] = useState<string>("");
+
     useEffect(() => {
         fetch(`http://localhost:8080/owner/salon/${salonId}?email=${encodeURIComponent(email)}`)
             .then((response) => {
@@ -113,6 +116,35 @@ const SalonDetailsPage: React.FC = () => {
             setOfferDuration("");
         } catch (error) {
             console.error("Error creating new offer:", error);
+        }
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setSelectedFile(e.target.files[0]);
+        }
+    };
+
+    const handleImageUpload = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!selectedFile) {
+            setUploadStatus("No file selected!");
+            return;
+        }
+        const formData = new FormData();
+        formData.append("multipartFile", selectedFile);
+
+        try {
+            const response = await axios.post(
+                `http://localhost:8080/salons/image/${salonId}`,
+                formData,
+                { headers: { "Content-Type": "multipart/form-data" } }
+            );
+            console.log("Image upload response:", response.data);
+            setUploadStatus("Uploading successful");
+        } catch (error) {
+            console.error("Error uploading image:", error);
+            setUploadStatus("Error uploading image");
         }
     };
 
@@ -253,6 +285,15 @@ const SalonDetailsPage: React.FC = () => {
                         }}
                     />
                 )}
+            </section>
+
+            <section className="section">
+                <h2>Upload Image</h2>
+                <form onSubmit={handleImageUpload} className="image-upload-form">
+                    <input type="file" accept="image/*" onChange={handleFileChange} required />
+                    <button type="submit">Upload Image</button>
+                </form>
+                {uploadStatus && <p>{uploadStatus}</p>}
             </section>
         </div>
     );

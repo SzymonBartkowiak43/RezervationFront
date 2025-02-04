@@ -1,19 +1,29 @@
-/* CreateSalon.css */
-
+/* Ustawienia głównego kontenera formularza */
 .create-salon {
-    max-width: 400px;
+    max-width: 500px;
     margin: 40px auto;
     padding: 20px;
     background-color: #f9f9f9;
-    border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
 }
 
-.create-salon h2 {
-    text-align: center;
-    margin-bottom: 20px;
+/* Stylizacja przycisków */
+.create-salon button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.create-salon button:hover {
+    background-color: #2980b9;
 }
 
 .create-salon form {
@@ -21,41 +31,23 @@
     flex-direction: column;
 }
 
-.create-salon input[type="text"],
-.create-salon input[type="email"] {
-    margin-bottom: 15px;
+.create-salon input {
     padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
     border-radius: 4px;
-    transition: border-color 0.3s;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
 }
 
-.create-salon input[type="text"]:focus,
-.create-salon input[type="email"]:focus {
-    border-color: #007bff;
+.create-salon input:focus {
+    border-color: #3498db;
     outline: none;
 }
 
-.create-salon button {
-    padding: 10px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-bottom: 10px;
-}
-
-.create-salon button:hover {
-    background-color: #0056b3;
-}
-
 .create-salon p {
-    font-size: 14px;
     margin-bottom: 15px;
+    font-size: 18px;
     color: #333;
     text-align: center;
 }

@@ -1,0 +1,72 @@
+/* Overlay – przyciemnione tło za popupem */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* Kontener popupu – wycentrowany na ekranie */
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    z-index: 1000;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Nagłówki popupu */
+.popup h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+/* Paragrafy */
+.popup p {
+    margin: 1rem 0;
+    color: #555;
+}
+
+/* Pole input dla emaila */
+.popup input[type="email"] {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 1rem 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+/* Kontener na przyciski */
+.popup-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1rem;
+}
+
+/* Przyciski popupu */
+.popup button {
+    background-color: #e76f51;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Efekt hover przycisków */
+.popup button:hover {
+    background-color: #d45d3f;
+}

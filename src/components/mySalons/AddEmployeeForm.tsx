@@ -1,20 +1,22 @@
 import React, { useState } from "react";
 import axios from "axios";
-import header from "../header/Header";
+import Header from "../header/Header";
 import "./AddEmployeeForm.css";
+
+const defaultAvailability = [
+    { dayOfWeek: "MONDAY", startTime: "", endTime: "" },
+    { dayOfWeek: "TUESDAY", startTime: "", endTime: "" },
+    { dayOfWeek: "WEDNESDAY", startTime: "", endTime: "" },
+    { dayOfWeek: "THURSDAY", startTime: "", endTime: "" },
+    { dayOfWeek: "FRIDAY", startTime: "", endTime: "" },
+    { dayOfWeek: "SATURDAY", startTime: "", endTime: "" },
+    { dayOfWeek: "SUNDAY", startTime: "", endTime: "" },
+];
 
 const AddEmployeeForm = ({ salonId }) => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [availability, setAvailability] = useState([
-        { dayOfWeek: "MONDAY", startTime: "", endTime: "" },
-        { dayOfWeek: "TUESDAY", startTime: "", endTime: "" },
-        { dayOfWeek: "WEDNESDAY", startTime: "", endTime: "" },
-        { dayOfWeek: "THURSDAY", startTime: "", endTime: "" },
-        { dayOfWeek: "FRIDAY", startTime: "", endTime: "" },
-        { dayOfWeek: "SATURDAY", startTime: "", endTime: "" },
-        { dayOfWeek: "SUNDAY", startTime: "", endTime: "" },
-    ]);
+    const [availability, setAvailability] = useState(defaultAvailability);
 
     const handleInputChange = (index, field, value) => {
         const newAvailability = [...availability];
@@ -40,6 +42,7 @@ const AddEmployeeForm = ({ salonId }) => {
 
             if (response.status === 200) {
                 alert("Employee added successfully!");
+                window.location.reload();
             } else {
                 alert("Error adding employee.");
             }
@@ -72,27 +75,23 @@ const AddEmployeeForm = ({ salonId }) => {
             <div>
                 <h3>Availability</h3>
                 {availability.map((slot, index) => (
-                    <div key={index}>
+                    <div key={index} className="time-input-group">
                         <label>{slot.dayOfWeek}</label>
-                        <div>
-                            <input
-                                type="time"
-                                value={slot.startTime}
-                                onChange={(e) =>
-                                    handleInputChange(index, "startTime", e.target.value)
-                                }
-                                required
-                            />
-                            to
-                            <input
-                                type="time"
-                                value={slot.endTime}
-                                onChange={(e) =>
-                                    handleInputChange(index, "endTime", e.target.value)
-                                }
-                                required
-                            />
-                        </div>
+                        <input
+                            type="time"
+                            step="3600"
+                            value={slot.startTime}
+                            onChange={(e) => handleInputChange(index, "startTime", e.target.value)}
+                            required
+                        />
+                        <span>to</span>
+                        <input
+                            type="time"
+                            step="3600"
+                            value={slot.endTime}
+                            onChange={(e) => handleInputChange(index, "endTime", e.target.value)}
+                            required
+                        />
                     </div>
                 ))}
             </div>
@@ -101,4 +100,4 @@ const AddEmployeeForm = ({ salonId }) => {
     );
 };
 
-export default header(AddEmployeeForm, "Rezerwacje");
+export default Header(AddEmployeeForm, "Rezerwacje");

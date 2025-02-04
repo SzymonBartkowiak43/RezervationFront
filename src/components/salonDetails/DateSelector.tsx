@@ -1,4 +1,5 @@
 import React from "react";
+import "./SalonDetailsCSS.css";
 
 interface DateSelectorProps {
   selectedDate: string;
@@ -9,16 +10,18 @@ const DateSelector: React.FC<DateSelectorProps> = ({
   selectedDate,
   onDateChange,
 }) => {
-  return (
-    <div>
-      <h3>Select a Date</h3>
-      <input
-        type="date"
-        value={selectedDate}
-        onChange={(e) => onDateChange(e.target.value)}
-      />
-    </div>
-  );
+
+    return (
+        <div className="date-selector">
+            <h3>Select a Date</h3>
+            <input
+                type="date"
+                value={selectedDate}
+                onChange={(e) => onDateChange(e.target.value)}
+            />
+        </div>
+    );
+
 };
 
 export default DateSelector;

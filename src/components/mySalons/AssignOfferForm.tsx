@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./AssignOfferForm.css";
 
 interface Offer {
     id: number;
@@ -25,7 +26,7 @@ const AssignOfferForm: React.FC<AssignOfferFormProps> = ({
         e.preventDefault();
 
         if (selectedOfferId === "") {
-            setError("Wybierz ofertę");
+            setError("Proszę wybrać ofertę");
             return;
         }
 
@@ -43,12 +44,13 @@ const AssignOfferForm: React.FC<AssignOfferFormProps> = ({
 
             if (response.status === 200) {
                 onSuccess();
+                setSelectedOfferId("");
             } else {
-                setError("Wystąpił problem podczas przypisywania oferty.");
+                setError("Wystąpił problem podczas przypisywania oferty");
             }
         } catch (err) {
-            console.error("AxiosError", err);
-            setError("Wystąpił błąd podczas przypisywania oferty.");
+            console.error("Błąd podczas przypisywania oferty:", err);
+            setError("Wystąpił błąd podczas przypisywania oferty");
         } finally {
             setLoading(false);
         }
@@ -56,22 +58,36 @@ const AssignOfferForm: React.FC<AssignOfferFormProps> = ({
 
     return (
         <form onSubmit={handleSubmit} className="assign-offer-form">
-            <label>Przypisz ofertę:</label>
-            <select
-                value={selectedOfferId}
-                onChange={(e) => setSelectedOfferId(Number(e.target.value))}
+            <div className="form-group">
+                <label className="form-label">Wybierz ofertę:</label>
+                <select
+                    className="form-select"
+                    value={selectedOfferId}
+                    onChange={(e) => setSelectedOfferId(Number(e.target.value))}
+                    disabled={loading}
+                >
+                    <option value="">-- Wybierz z listy --</option>
+                    {availableOffers.map((offer) => (
+                        <option key={offer.id} value={offer.id}>
+                            {offer.name}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
+            <button
+                type="submit"
+                className="submit-button"
+                disabled={loading}
             >
-                <option value="">Wybierz ofertę</option>
-                {availableOffers.map((offer) => (
-                    <option key={offer.id} value={offer.id}>
-                        {offer.name}
-                    </option>
-                ))}
-            </select>
-            <button type="submit" disabled={loading}>
-                {loading ? "Przypisywanie..." : "Przypisz ofertę"}
+                {loading ? (
+                    <span className="loading-text">Przypisywanie...</span>
+                ) : (
+                    "Przypisz ofertę"
+                )}
             </button>
-            {error && <p style={{ color: "red" }}>{error}</p>}
+
+            {error && <div className="error-message">{error}</div>}
         </form>
     );
 };

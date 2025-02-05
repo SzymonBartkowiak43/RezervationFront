@@ -1,72 +1,118 @@
-/* Overlay – przyciemnione tło za popupem */
+:root {
+    --primary-color: #2c3e50;
+    --accent-color: #e76f51;
+}
+
 .popup-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
 }
 
-/* Kontener popupu – wycentrowany na ekranie */
 .popup {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #fff;
+    background: #3d3c3c;
     padding: 2rem;
-    border-radius: 10px;
-    z-index: 1000;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
     width: 90%;
     max-width: 400px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #f8f9fa;
+    font-family: 'Poppins', sans-serif;
+}
+
+.popup h3 {
+    color: #f8f9fa;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     text-align: center;
 }
 
-/* Nagłówki popupu */
-.popup h3 {
-    margin-top: 0;
-    color: #333;
-}
-
-/* Paragrafy */
 .popup p {
-    margin: 1rem 0;
-    color: #555;
+    color: #e0e0e0;
+    margin-bottom: 1.5rem;
+    text-align: center;
 }
 
-/* Pole input dla emaila */
 .popup input[type="email"] {
     width: 100%;
-    padding: 0.75rem;
-    margin: 1rem 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 0.8rem;
+    margin-bottom: 1.5rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background: #4a4a4a;
+    color: #f8f9fa;
     font-size: 1rem;
+    transition: all 0.3s ease;
 }
 
-/* Kontener na przyciski */
+.popup input[type="email"]:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(231, 111, 81, 0.2);
+}
+
 .popup-buttons {
     display: flex;
-    justify-content: space-around;
-    margin-top: 1rem;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
 }
 
-/* Przyciski popupu */
 .popup button {
-    background-color: #e76f51;
+    background-color: var(--accent-color);
     color: white;
-    padding: 0.75rem 1.5rem;
+    padding: 1rem 1.5rem;
     border: none;
-    border-radius: 5px;
-    font-size: 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-/* Efekt hover przycisków */
 .popup button:hover {
     background-color: #d45d3f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.popup button:last-child {
+    background-color: #4a4a4a;
+    color: #f8f9fa;
+}
+
+.popup button:last-child:hover {
+    background-color: #5a5a5a;
+}
+
+/* Styl dla potwierdzonej rezerwacji */
+.popup h3:has(+ button) {
+    color: var(--accent-color);
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+    .popup {
+        padding: 1.5rem;
+    }
+
+    .popup-buttons {
+        flex-direction: column;
+    }
+
+    .popup button {
+        width: 100%;
+    }
 }

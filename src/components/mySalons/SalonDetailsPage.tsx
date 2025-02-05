@@ -46,16 +46,14 @@ const SalonDetailsPage: React.FC = () => {
 
     const [salon, setSalon] = useState<SalonData | null>(null);
 
-    // Stany dla formularza dodawania oferty
     const [offerName, setOfferName] = useState("");
     const [offerDescription, setOfferDescription] = useState("");
     const [offerPrice, setOfferPrice] = useState("");
-    const [offerDuration, setOfferDuration] = useState(""); // liczba minut jako string
+    const [offerDuration, setOfferDuration] = useState("");
 
-    // Nowy stan do wyboru pracownika dla przypisania oferty
+
     const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | "">("");
 
-    // Lista dostępnych ofert
     const availableOffers: Offer[] = salon ? salon.offerDto : [];
 
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -80,7 +78,6 @@ const SalonDetailsPage: React.FC = () => {
     const handleOfferSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Konwersja czasu z minut na format "HH:mm"
         const minutes = parseInt(offerDuration, 10);
         const hoursPart = Math.floor(minutes / 60)
             .toString()
@@ -88,12 +85,11 @@ const SalonDetailsPage: React.FC = () => {
         const minutesPart = (minutes % 60).toString().padStart(2, "0");
         const durationFormatted = `${hoursPart}:${minutesPart}`;
 
-        // Przygotowujemy obiekt zgodny z CreateOfferDto
         const createOfferDto = {
             name: offerName,
             description: offerDescription,
             price: parseFloat(offerPrice),
-            duration: durationFormatted, // Format "HH:mm"
+            duration: durationFormatted,
             salonId: Number(salonId),
         };
 
@@ -101,15 +97,12 @@ const SalonDetailsPage: React.FC = () => {
             const response = await axios.post("http://localhost:8080/offer", createOfferDto);
             console.log("New offer created:", response.data);
 
-            // Załóżmy, że odpowiedź zawiera utworzoną ofertę o strukturze Offer
             const newOffer: Offer = response.data;
 
-            // Aktualizujemy listę ofert
             setSalon((prevSalon) =>
                 prevSalon ? { ...prevSalon, offerDto: [...prevSalon.offerDto, newOffer] } : prevSalon
             );
 
-            // Reset pól formularza
             setOfferName("");
             setOfferDescription("");
             setOfferPrice("");

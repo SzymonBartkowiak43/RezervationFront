@@ -1,0 +1,21 @@
+.no-terms {
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    background-color: transparent; /* Opcjonalnie jeśli potrzebujesz */
+}
+
+.no-terms {
+    color: white !important;
+}
+
+p{
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    background-color: transparent; /* Opcjonalnie jeśli potrzebujesz */
+}
+
+p {
+    color: white !important;
+}

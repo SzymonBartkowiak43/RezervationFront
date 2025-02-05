@@ -15,6 +15,7 @@ import { Offer } from "../../models/Offer";
 import { Employee } from "../../models/Employee";
 import { Term } from "../../models/Term";
 import "./SalonDetailsCSS.css";
+import DateSelector from "./DateSelector";
 import header from "../header/Header";
 
 const SalonDetails: React.FC = () => {
@@ -131,15 +132,10 @@ const SalonDetails: React.FC = () => {
                 />
             )}
 
-            <div>
-                <h3>Select a Date</h3>
-                <input
-                    type="date"
-                    value={selectedDate}
-                    min={today}
-                    onChange={(e) => setSelectedDate(e.target.value)}
-                />
-            </div>
+            <DateSelector
+                selectedDate={selectedDate}
+                onDateChange={setSelectedDate}
+            />
 
             <button onClick={fetchAvailableTerms} disabled={loadingTerms}>
                 {loadingTerms ? "Fetching terms..." : "Fetch Available Terms"}

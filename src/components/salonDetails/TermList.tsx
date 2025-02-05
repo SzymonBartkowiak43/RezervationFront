@@ -1,5 +1,6 @@
 import React from "react";
 import { Term } from "../../models/Term";
+import "./TermList.css";
 
 interface TermListProps {
   terms: Term[];

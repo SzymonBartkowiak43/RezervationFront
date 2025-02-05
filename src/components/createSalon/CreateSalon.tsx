@@ -11,13 +11,14 @@ function CreateSalon({ email }: { email?: string }) {
     const [zipCode, setZipCode] = useState("");
     const [street, setStreet] = useState("");
     const [number, setNumber] = useState("");
-    const [code, setCode] = useState("");
+    const [generatedCode, setGeneratedCode] = useState("");
+    const [inputCode, setInputCode] = useState("");
     const navigate = useNavigate();
 
     const generateCode = async () => {
         try {
             const response = await axios.post("http://localhost:8080/generateCode");
-            setCode(response.data.code);
+            setGeneratedCode(response.data.code);
         } catch (error) {
             console.error("Błąd podczas generowania kodu:", error);
         }
@@ -26,8 +27,8 @@ function CreateSalon({ email }: { email?: string }) {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (!code) {
-            alert("Proszę wygenerować lub wpisać kod!");
+        if (!inputCode) {
+            alert("Proszę wpisać kod!");
             return;
         }
 
@@ -39,12 +40,12 @@ function CreateSalon({ email }: { email?: string }) {
             street,
             number,
             email,
-            code,
+            code: inputCode,
         };
 
         try {
             const response = await axios.post("http://localhost:8080/salon", newSalon);
-            console.log("Salon stworzony:", response.data);
+            console.log("Salon Created:", response.data);
             const salonId = response.data.salonId;
             navigate(`/add-opening-hours/${salonId}`);
         } catch (error) {
@@ -54,8 +55,18 @@ function CreateSalon({ email }: { email?: string }) {
 
     return (
         <div className="create-salon">
-            <button onClick={generateCode}>Generate Code</button>
-            {code && <p>Wygenerowany kod: {code}</p>}
+            <div className="code-section">
+                <button type="button" onClick={generateCode}>
+                    Generate Code
+                </button>
+                {generatedCode && (
+                    <div className="generated-code-info">
+                        <p>Generated code: <strong>{generatedCode}</strong></p>
+                        <small>Copy and paste the code below</small>
+                    </div>
+                )}
+            </div>
+
 
             <form onSubmit={handleSubmit}>
                 <input
@@ -101,16 +112,14 @@ function CreateSalon({ email }: { email?: string }) {
                     required
                 />
 
-                {/* Pole do ręcznego wpisania kodu */}
                 <input
                     type="text"
-                    placeholder="Wklej kod"
-                    value={code}
-                    onChange={(e) => setCode(e.target.value)}
+                    placeholder="Paste Code Here"
+                    value={inputCode}
+                    onChange={(e) => setInputCode(e.target.value)}
                     required
                 />
 
-                {/* Email – zabezpieczamy przed przekazaniem undefined */}
                 <input
                     type="email"
                     value={email || ""}

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import header from "../header/Header";
 import "./MySalonsPage.css";
+import { FaCity, FaMapMarkerAlt, FaTag, FaPlusCircle, FaSadTear } from "react-icons/fa";
 
 interface SalonWithIdDto {
     id: string;
@@ -16,22 +17,23 @@ interface SalonWithIdDto {
 
 const MySalonsPage: React.FC = () => {
     const [salons, setSalons] = useState<SalonWithIdDto[]>([]);
+    const [loading, setLoading] = useState(true);
     const userEmail = localStorage.getItem("email") || "";
     const navigate = useNavigate();
 
     useEffect(() => {
         fetch(`http://localhost:8080/owner/salons?email=${encodeURIComponent(userEmail)}`)
             .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
+                if (!response.ok) throw new Error("Network response was not ok");
                 return response.json();
             })
             .then((data) => {
                 setSalons(data);
+                setLoading(false);
             })
             .catch((error) => {
                 console.error("Error fetching salons:", error);
+                setLoading(false);
             });
     }, [userEmail]);
 
@@ -39,23 +41,59 @@ const MySalonsPage: React.FC = () => {
         navigate(`/owner/salon/${salonId}?email=${encodeURIComponent(userEmail)}`);
     };
 
+    const handleCreateNew = () => {
+        navigate("/create-salon");
+    };
+
     return (
         <div className="my-salons-container">
-            <h1 className="title">My Salons</h1>
-            {salons.length > 0 ? (
-                <ul className="salon-list">
+            <div className="header-section">
+                <h1 className="title">
+                    <FaCity className="title-icon" /> My salons
+                </h1>
+                <button className="create-button" onClick={handleCreateNew}>
+                    <FaPlusCircle /> New Salon
+                </button>
+            </div>
+
+            {loading ? (
+                <div className="loading-container">
+                    <div className="loading-spinner"></div>
+                    <p>Salon loading...</p>
+                </div>
+            ) : salons.length > 0 ? (
+                <div className="salon-grid">
                     {salons.map((salon) => (
-                        <li key={salon.id} className="salon-item" onClick={() => handleSalonClick(salon.id)}>
-                            <h2 className="salon-name">{salon.salonName}</h2>
-                            <p className="salon-category">{salon.category}</p>
-                            <p className="salon-address">
-                                {salon.street} {salon.number}, {salon.city}, {salon.zipCode}
-                            </p>
-                        </li>
+                        <div
+                            key={salon.id}
+                            className="salon-card"
+                            onClick={() => handleSalonClick(salon.id)}
+                        >
+                            <div className="card-header">
+                                <h2 className="salon-name">{salon.salonName}</h2>
+                                <span className="salon-category">
+                                    <FaTag /> {salon.category}
+                                </span>
+                            </div>
+                            <div className="card-body">
+                                <p className="salon-address">
+                                    <FaMapMarkerAlt />
+                                    <span>{salon.street} {salon.number}</span>
+                                    <span>{salon.zipCode} {salon.city}</span>
+                                </p>
+                            </div>
+                            <div className="card-hover-effect"></div>
+                        </div>
                     ))}
-                </ul>
+                </div>
             ) : (
-                <p className="no-salons">No salons found.</p>
+                <div className="no-salons">
+                    <FaSadTear className="sad-icon" />
+                    <p>Nie znaleziono żadnych salonów</p>
+                    <button className="create-button" onClick={handleCreateNew}>
+                        <FaPlusCircle /> Stwórz pierwszy salon
+                    </button>
+                </div>
             )}
         </div>
     );

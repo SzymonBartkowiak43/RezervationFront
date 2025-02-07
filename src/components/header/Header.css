@@ -3,7 +3,7 @@
 
 .header {
   position: fixed;
-  top: -30px;
+  top: 0;
   left: 0;
   right: 0;
   background: var(--header-bg);
@@ -15,10 +15,8 @@
   z-index: 1000;
   flex-wrap: nowrap;
   gap: 2rem;
-  height: 140px;
+  height: 80px;
 }
-
-
 
 .header-left {
   display: flex;

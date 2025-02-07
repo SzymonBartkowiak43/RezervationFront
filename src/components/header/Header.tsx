@@ -13,18 +13,18 @@ const withHeader = (
 
     useEffect(() => {
       const token = localStorage.getItem("token");
-      const storedEmail = localStorage.getItem("email");  // Pobieramy email z localStorage
+      const storedEmail = localStorage.getItem("email");
       setIsLoggedIn(!!token);
-      setEmail(storedEmail);  // Ustawiamy email
+      setEmail(storedEmail);
     }, []);
 
     const handleRegisterClick = () => navigate("/register");
     const handleLoginClick = () => navigate("/login");
     const handleLogoutClick = () => {
       localStorage.removeItem("token");
-      localStorage.removeItem("email");  // Usuwamy email przy wylogowywaniu
+      localStorage.removeItem("email");
       setIsLoggedIn(false);
-      setEmail(null);  // Resetujemy email
+      setEmail(null);
       navigate("/");
     };
     const handleReservationsClick = () => navigate("/reservations");
@@ -43,44 +43,31 @@ const withHeader = (
             <div className="header-right">
               {isLoggedIn ? (
                   <>
-                    <button
-                        className="header-button"
-                        onClick={handleCreateSalonClick}
-                    >
-                      Create Salon
+                    {email && (
+                        <div className="user-info">
+                          <span className="user-email">{email}</span>
+                        </div>
+                    )}
+                    <button className="header-button" onClick={handleCreateSalonClick}>
+                      🏛️ Create Salon
                     </button>
-                    <button
-                        className="header-button"
-                        onClick={handleReservationsClick}
-                    >
-                      Reservations
+                    <button className="header-button" onClick={handleReservationsClick}>
+                      📅 Reservations
                     </button>
-                    <button
-                        className="header-button"
-                        onClick={handleMySalonsClick}
-                    >
-                      My Salons
+                    <button className="header-button" onClick={handleMySalonsClick}>
+                      💈 My Salons
                     </button>
-                    <button
-                        className="header-button logout-button"
-                        onClick={handleLogoutClick}
-                    >
-                      Logout
+                    <button className="header-button logout-button" onClick={handleLogoutClick}>
+                      🚪 Logout
                     </button>
                   </>
               ) : (
                   <>
-                    <button
-                        className="header-button login-button"
-                        onClick={handleLoginClick}
-                    >
-                      Login
+                    <button className="header-button login-button" onClick={handleLoginClick}>
+                      🔑 Login
                     </button>
-                    <button
-                        className="header-button register-button"
-                        onClick={handleRegisterClick}
-                    >
-                      Register
+                    <button className="header-button login-button" onClick={handleRegisterClick}>
+                      📝 Register
                     </button>
                   </>
               )}

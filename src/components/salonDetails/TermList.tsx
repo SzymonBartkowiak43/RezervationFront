@@ -7,10 +7,10 @@ interface TermListProps {
   onTermSelect: (term: Term) => void;
 }
 
-const TermList: React.FC<TermListProps> = ({ terms, onTermSelect }) => {
-  if (terms.length === 0) {
-    return <p>No available terms for this selection.</p>;
-  }
+const TermList: React.FC<TermListProps> = ({terms, onTermSelect}) => {
+    if (terms.length === 0) {
+        return <p>No available terms for this selection.</p>;
+    }
 
     return (
         <div className="term-list">
@@ -22,8 +22,9 @@ const TermList: React.FC<TermListProps> = ({ terms, onTermSelect }) => {
                     {terms.map((term, index) => (
                         <li key={index}>
           <span>
-            {term.startServices} - {term.endServices}
+                    {term.startServices.slice(0, 5)} - {term.endServices.slice(0, 5)}
           </span>
+
                             <button className="small-button" onClick={() => onTermSelect(term)}>
                                 Book
                             </button>

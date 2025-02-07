@@ -55,7 +55,7 @@ button:hover {
 }
 
 .salon-card {
-    padding: 15px; /* Dodajemy padding do karty */
+    padding: 15px;
     background: #3d3c3c;
     border-radius: 15px;
     overflow: hidden;
@@ -64,6 +64,7 @@ button:hover {
     display: flex;
     flex-direction: column;
     border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 5px;
 }
 
 .salon-card:hover {

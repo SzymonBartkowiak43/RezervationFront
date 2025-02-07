@@ -13,14 +13,26 @@ function CreateSalon({ email }: { email?: string }) {
     const [number, setNumber] = useState("");
     const [generatedCode, setGeneratedCode] = useState("");
     const [inputCode, setInputCode] = useState("");
+    const [boughtCodeLink, setBoughtCodeLink] = useState("");
     const navigate = useNavigate();
 
     const generateCode = async () => {
         try {
-            const response = await axios.post("http://localhost:8080/generateCode");
+            const response = await axios.post("http://localhost:8080/reservation-service/code/generateCode");
             setGeneratedCode(response.data.code);
         } catch (error) {
             console.error("Błąd podczas generowania kodu:", error);
+        }
+    };
+
+    // Nowa funkcja do pobierania linku
+    const handleBoughtCode = async () => {
+        try {
+            const response = await axios.get("http://localhost:8060/reservation-service/code/get-link-to-code");
+            setBoughtCodeLink(response.data);
+        } catch (error) {
+            console.error("Błąd podczas pobierania linku:", error);
+            alert("Error fetching code link");
         }
     };
 
@@ -56,17 +68,33 @@ function CreateSalon({ email }: { email?: string }) {
     return (
         <div className="create-salon">
             <div className="code-section">
-                <button type="button" onClick={generateCode}>
-                    Generate Code
-                </button>
+                <div className="code-buttons">
+                    <button type="button" onClick={generateCode} className="generate-button">
+                        Generate Free Code
+                    </button>
+                    <button type="button" onClick={handleBoughtCode} className="bought-code-button">
+                        Bought Code
+                    </button>
+                </div>
+
                 {generatedCode && (
                     <div className="generated-code-info">
-                        <p>Generated code: <strong>{generatedCode}</strong></p>
+                        <p>Free code: <strong>{generatedCode}</strong></p>
                         <small>Copy and paste the code below</small>
                     </div>
                 )}
-            </div>
 
+                {boughtCodeLink && (
+                    <div className="bought-code-info">
+                        <p>Purchase code at:
+                            <a href={boughtCodeLink} target="_blank" rel="noopener noreferrer" className="code-link">
+                                {boughtCodeLink}
+                            </a>
+                        </p>
+                        <small>Visit link and paste code below</small>
+                    </div>
+                )}
+            </div>
 
             <form onSubmit={handleSubmit}>
                 <input

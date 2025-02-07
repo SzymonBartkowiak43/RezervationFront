@@ -139,6 +139,10 @@
     animation: spin 1s linear infinite;
 }
 
+/*.salon-name-span {*/
+/*    margin-top: -25px;*/
+/*}*/
+
 @keyframes spin {
     to {
         transform: rotate(360deg);

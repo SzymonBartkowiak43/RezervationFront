@@ -78,7 +78,7 @@ const MySalonsPage: React.FC = () => {
                             <div className="card-body">
                                 <p className="salon-address">
                                     <FaMapMarkerAlt />
-                                    <span>{salon.street} {salon.number}</span>
+                                    <span className="salon-name-span">{salon.street} {salon.number}</span>
                                     <span>{salon.zipCode} {salon.city}</span>
                                 </p>
                             </div>
@@ -89,9 +89,9 @@ const MySalonsPage: React.FC = () => {
             ) : (
                 <div className="no-salons">
                     <FaSadTear className="sad-icon" />
-                    <p>Nie znaleziono żadnych salonów</p>
+                    <p>No salons found</p>
                     <button className="create-button" onClick={handleCreateNew}>
-                        <FaPlusCircle /> Stwórz pierwszy salon
+                        <FaPlusCircle /> Create your first salon
                     </button>
                 </div>
             )}

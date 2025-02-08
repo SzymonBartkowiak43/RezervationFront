@@ -253,7 +253,7 @@ const SalonDetailsPage: React.FC = () => {
             <section className="section">
                 <h2>Assign Offer to Employee</h2>
                 <div>
-                    <label htmlFor="employee-select">Wybierz pracownika:</label>
+                    <label htmlFor="employee-select">Select an employee:</label>
                     <select
                         id="employee-select"
                         value={selectedEmployeeId}
@@ -261,7 +261,7 @@ const SalonDetailsPage: React.FC = () => {
                             setSelectedEmployeeId(Number(e.target.value))
                         }
                     >
-                        <option value="">-- Wybierz --</option>
+                        <option value="">-- Choose --</option>
                         {salon.employeeDto.map((emp) => (
                             <option key={emp.employeeId} value={emp.employeeId}>
                                 {emp.name}

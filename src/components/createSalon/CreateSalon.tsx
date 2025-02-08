@@ -16,19 +16,19 @@ function CreateSalon({ email }: { email?: string }) {
 
     const generateCode = async () => {
         try {
-            const response = await axios.post("http://localhost:8080/reservation-service/code/generateCode");
+            const response = await axios.post("http://164.90.190.165:8080/reservation-service/code/generateCode");
             setGeneratedCode(response.data.code);
         } catch (error) {
-            console.error("Błąd podczas generowania kodu:", error);
+            console.error("Error during code generation:", error);
         }
     };
 
     const handleBoughtCode = async () => {
         try {
-            const response = await axios.get("http://localhost:8060/reservation-service/code/get-link-to-code");
-            window.location.href = response.data;
+            const response = await axios.get("http://164.90.190.165:8060/reservation-service/code/get-link-to-code");
+            window.open(response.data, "_blank");
         } catch (error) {
-            console.error("Błąd podczas pobierania linku:", error);
+            console.error("Error while downloading the link:", error);
             alert("Error fetching code link");
         }
     };
@@ -37,7 +37,7 @@ function CreateSalon({ email }: { email?: string }) {
         e.preventDefault();
 
         if (!inputCode) {
-            alert("Proszę wpisać kod!");
+            alert("Please enter the code!");
             return;
         }
 
@@ -53,12 +53,12 @@ function CreateSalon({ email }: { email?: string }) {
         };
 
         try {
-            const response = await axios.post("http://localhost:8080/salon", newSalon);
+            const response = await axios.post("http://164.90.190.165:8080/salon", newSalon);
             console.log("Salon Created:", response.data);
             const salonId = response.data.salonId;
             navigate(`/add-opening-hours/${salonId}`);
         } catch (error) {
-            console.error("Błąd podczas tworzenia salonu:", error);
+            console.error("Error when creating a salon:", error);
         }
     };
 

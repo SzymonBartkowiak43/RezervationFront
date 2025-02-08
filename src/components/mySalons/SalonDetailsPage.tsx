@@ -60,7 +60,7 @@ const SalonDetailsPage: React.FC = () => {
     const [uploadStatus, setUploadStatus] = useState<string>("");
 
     useEffect(() => {
-        fetch(`http://localhost:8080/owner/salon/${salonId}?email=${encodeURIComponent(email)}`)
+        fetch(`http://164.90.190.165:8080/owner/salon/${salonId}?email=${encodeURIComponent(email)}`)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Failed to fetch salon data");
@@ -94,7 +94,7 @@ const SalonDetailsPage: React.FC = () => {
         };
 
         try {
-            const response = await axios.post("http://localhost:8080/offer", createOfferDto);
+            const response = await axios.post("http://164.90.190.165:8080/offer", createOfferDto);
             console.log("New offer created:", response.data);
 
             const newOffer: Offer = response.data;
@@ -129,7 +129,7 @@ const SalonDetailsPage: React.FC = () => {
 
         try {
             const response = await axios.post(
-                `http://localhost:8080/salons/image/${salonId}`,
+                `http://164.90.190.165:8080/salons/image/${salonId}`,
                 formData,
                 { headers: { "Content-Type": "multipart/form-data" } }
             );
@@ -196,7 +196,6 @@ const SalonDetailsPage: React.FC = () => {
                 ))}
             </section>
 
-            {/* Sekcja dodawania nowego pracownika */}
             <section className="section">
                 <h2>➕ Add New Employee</h2>
                 <AddEmployeeForm salonId={Number(salonId)} />
@@ -249,7 +248,6 @@ const SalonDetailsPage: React.FC = () => {
                 </div>
             </section>
 
-            {/* Sekcja przypisywania oferty do pracownika - umieszczona na samym dole */}
             <section className="section">
                 <h2>Assign Offer to Employee</h2>
                 <div>

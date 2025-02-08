@@ -36,7 +36,7 @@ const AddEmployeeForm = ({ salonId }) => {
 
         try {
             const response = await axios.post(
-                `http://localhost:8080/salon/${salonId}/employee`,
+                `http://164.90.190.165:8080/salon/${salonId}/employee`,
                 employeeDto
             );
 

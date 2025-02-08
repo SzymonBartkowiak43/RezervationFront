@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:8080";
+const baseURL = "http://164.90.190.165:8080";
 
 
 export const getUserReservations = async (email: string, token: string) => {

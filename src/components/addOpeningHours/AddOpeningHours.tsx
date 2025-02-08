@@ -67,7 +67,7 @@ function AddOpeningHours() {
         }));
 
         try {
-            await axios.patch("http://localhost:8080/salon/add-opening-hours", payload);
+            await axios.patch("http://164.90.190.165:8080/salon/add-opening-hours", payload);
             navigate(`/owner/salon/${salonId}`);
         } catch (error) {
             console.error("Error when adding opening hours:", error);

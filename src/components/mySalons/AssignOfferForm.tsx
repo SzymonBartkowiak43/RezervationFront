@@ -35,7 +35,7 @@ const AssignOfferForm: React.FC<AssignOfferFormProps> = ({
 
         try {
             const response = await axios.patch(
-                "http://localhost:8080/employees/add-offer",
+                "http://164.90.190.165:8080/employees/add-offer",
                 {
                     offerId: selectedOfferId,
                     employeeId: employeeId,

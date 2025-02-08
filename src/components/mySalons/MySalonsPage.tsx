@@ -22,7 +22,7 @@ const MySalonsPage: React.FC = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch(`http://localhost:8080/owner/salons?email=${encodeURIComponent(userEmail)}`)
+        fetch(`http://164.90.190.165:8080/owner/salons?email=${encodeURIComponent(userEmail)}`)
             .then((response) => {
                 if (!response.ok) throw new Error("Network response was not ok");
                 return response.json();

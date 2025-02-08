@@ -8,7 +8,7 @@ interface User {
 
 export const registerUser = async (user: User) => {
     try {
-        const response = await axios.post('http://localhost:8080/register', user, {
+        const response = await axios.post('http://164.90.190.165:8080/register', user, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -23,7 +23,7 @@ export const registerUser = async (user: User) => {
 
 export const loginUser = async (email: string, password: string): Promise<LoginResponse> => {
     try {
-        const response = await axios.post('http://localhost:8080/token', { email, password }, {
+        const response = await axios.post('http://164.90.190.165:8080/token', { email, password }, {
             headers: {
                 'Content-Type': 'application/json',
             },
